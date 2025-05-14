@@ -1,9 +1,9 @@
 public class Robo {
-    private int linha;
-    private int coluna;
-    private String cor;
-    private int maxLinhas = 5;
-    private int maxColunas = 5;
+    protected int linha;
+    protected int coluna;
+    protected String cor;
+    protected int maxLinhas = 5;
+    protected int maxColunas = 5;
 
     public Robo(String cor) {
         this.cor = cor;
@@ -11,74 +11,82 @@ public class Robo {
         this.coluna = 0;
     }
 
-    public void mover(String direcao) throws MovimentoInvalidoException {
-        switch (direcao.toLowerCase()) {
-            case "up":
-                if (linha > 0) {
-                    linha--;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
-                }
-                break;
-            case "down":
-                if (linha < maxLinhas - 1) {
-                    linha++;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
-                }
-                break;
-            case "left":
-                if (coluna > 0) {
-                    coluna--;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
-                }
-                break;
-            case "right":
-                if (coluna < maxColunas - 1) {
-                    coluna++;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
-                }
-                break;
-            default:
-                throw new MovimentoInvalidoException("Direção inválida: " + direcao);
-        }
+    public boolean mover(String direcao) throws MovimentoInvalidoException {
+    switch (direcao.toLowerCase()) {
+        case "up":
+            if (linha > 0) {
+                linha--;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
+            }
+
+        case "down":
+            if (linha < maxLinhas - 1) {
+                linha++;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
+            }
+
+        case "left":
+            if (coluna > 0) {
+                coluna--;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
+            }
+
+        case "right":
+            if (coluna < maxColunas - 1) {
+                coluna++;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
+            }
+
+        default:
+            throw new MovimentoInvalidoException("Direção inválida: " + direcao);
     }
-    public void mover(int direcao) throws MovimentoInvalidoException {
-        switch (direcao) {
-            case 1:
-                if (linha > 0) {
-                    linha--;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
-                }
-                break;
-            case 2:
-                if (linha < maxLinhas - 1) {
-                    linha++;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
-                }
-                break;
-            case 4:
-                if (coluna > 0) {
-                    coluna--;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
-                }
-                break;
-            case 3:
-                if (coluna < maxColunas - 1) {
-                    coluna++;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
-                }
-                break;
-            default:
-                throw new MovimentoInvalidoException("Direção inválida: " + direcao + "Não é um número válido");
-        }
+}
+    public boolean mover(int direcao) throws MovimentoInvalidoException {
+    switch (direcao) {
+        case 1: // Cima
+            if (linha > 0) {
+                linha--;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
+            }
+
+        case 2: // Baixo
+            if (linha < maxLinhas - 1) {
+                linha++;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
+            }
+
+        case 4: // Esquerda
+            if (coluna > 0) {
+                coluna--;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
+            }
+
+        case 3: // Direita
+            if (coluna < maxColunas - 1) {
+                coluna++;
+                return true;
+            } else {
+                throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
+            }
+
+        default:
+            throw new MovimentoInvalidoException("Direção inválida: " + direcao + ". Não é um número válido.");
     }
+}
 
     public boolean isComida (Comida comida) { 
         if (comida.getPosicao()[0] == linha && comida.getPosicao()[1] == coluna) {
