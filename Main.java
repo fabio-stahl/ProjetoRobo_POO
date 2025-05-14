@@ -59,6 +59,10 @@ public class Main {
                 } catch (MovimentoInvalidoException e) {
                     System.out.println(e.getMessage());
                 }
+                if(robo.isComida(comida)){
+                    System.out.println("Comida encontrada!");
+                    break;
+                }
             }
         }
     }
