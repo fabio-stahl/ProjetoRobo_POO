@@ -45,6 +45,40 @@ public class Robo {
                 throw new MovimentoInvalidoException("Direção inválida: " + direcao);
         }
     }
+    public void mover(int direcao) throws MovimentoInvalidoException {
+        switch (direcao) {
+            case 1:
+                if (linha > 0) {
+                    linha--;
+                } else {
+                    throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
+                }
+                break;
+            case 2:
+                if (linha < maxLinhas - 1) {
+                    linha++;
+                } else {
+                    throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
+                }
+                break;
+            case 4:
+                if (coluna > 0) {
+                    coluna--;
+                } else {
+                    throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
+                }
+                break;
+            case 3:
+                if (coluna < maxColunas - 1) {
+                    coluna++;
+                } else {
+                    throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
+                }
+                break;
+            default:
+                throw new MovimentoInvalidoException("Direção inválida: " + direcao + "Não é um número válido");
+        }
+    }
 
     public boolean isComida (Comida comida) { 
         if (comida.getPosicao()[0] == linha && comida.getPosicao()[1] == coluna) {
