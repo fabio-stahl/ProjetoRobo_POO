@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
-public class Main {
+
+public class Main{
     public static Scanner T = new Scanner(System.in);
     public static void main(String[] args){
         while(true){
