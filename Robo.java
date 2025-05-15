@@ -102,5 +102,4 @@ public class Robo {
     public String getCor () {
         return cor;
     }
-
 }
