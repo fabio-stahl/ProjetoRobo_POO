@@ -137,7 +137,7 @@ public class Main{
 
     }
 
-    private static void JogarRoboxRoboInteligente () {
+    private static void JogarRoboxRoboInteligente() {
         Robo robo1;
         Robo robo2;
         Comida comida;
@@ -222,19 +222,23 @@ public class Main{
             else              obstaculos.add(new Rocha(id, ol, oc));
         }
 
-        Robo normal      = new Robo("Normal");
+        Robo normal = new Robo("Normal");
         Robo inteligente = new RoboInteligente("Inteligente");
         Random rand = new Random();
 
         while (true) {
-            if (!turno(normal, comida, obstaculos, rand))      break;
-            if (!turno(inteligente, comida, obstaculos, rand)) break;
+            if (!turno(normal, comida, obstaculos, rand)){
+                break;
+            }
+            if (!turno(inteligente, comida, obstaculos, rand)){
+                break;
+            }
         }
 
         System.out.println("\n--- FIM DE JOGO ---");
-        System.out.println("Movimentos Robo Normal:      " + normal.getMovimentos());
+        System.out.println("Movimentos Robo Normal: " + normal.getMovimentos());
         System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
-        if (normal.isExplodiu())      System.out.println("Robo Normal explodiu.");
+        if (normal.isExplodiu()) System.out.println("Robo Normal explodiu.");
         if (inteligente.isExplodiu()) System.out.println("Robo Inteligente explodiu.");
     }
 
