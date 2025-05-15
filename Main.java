@@ -1,28 +1,29 @@
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main{
     public static Scanner T = new Scanner(System.in);
-    public static void main(String[] args){
-        while(true){
-            System.out.println("Escolha o tipo de robô (1 - Robo Normal, 2 - Robo automático, 3 - Teste de Robo Inteligente, 4 - Sair):");
-            int tipoRobo = T.nextInt();
-            if (tipoRobo == 1) {
-                jogarRoboNormal();
-            } else if (tipoRobo == 2) {
-                jogarRoboAutomatico();
-            }
-            else if(tipoRobo == 3){
-                JogarRoboxRoboInteligente();
-            }else if(tipoRobo == 4){
-                System.out.println("Saindo do jogo.");
-                break; 
-            }else {
-                System.out.println("Tipo de robô inválido.");
+    public static void main(String[] args) throws MovimentoInvalidoException {
+        while (true) {
+            System.out.println("\nEscolha o modo de jogo:");
+            System.out.println("1 - Robo Normal (manual)");
+            System.out.println("2 - Robo Automático (aleatório x aleatório)");
+            System.out.println("3 - Robo Inteligente vs Robo Normal (teste)");
+            System.out.println("4 - Robo Normal vs Robo Inteligente com Obstáculos");
+            System.out.println("5 - Sair");
+            int opc = T.nextInt();
+
+            switch (opc) {
+                case 1: jogarRoboNormal(); break;
+                case 2: jogarRoboAutomatico(); break;
+                case 3: jogarRoboXRoboInteligente(); break;
+                case 4: jogarComObstaculos(); break;
+                case 5:
+                    System.out.println("Saindo do jogo.");
+                    return;
+                default:
+                    System.out.println("Opção inválida.");
             }
         }
-        
-
     }
     private static void jogarRoboNormal(){
         Robo robo;
@@ -204,5 +205,61 @@ public class Main{
 
     }
 
+    private static void jogarComObstaculos() throws MovimentoInvalidoException {
+        System.out.println("\n>>> MODO: Robo Normal vs Robo Inteligente (com Obstáculos)");
+        System.out.print("Digite a linha e a coluna da comida (0–4): ");
+        int l = T.nextInt(), c = T.nextInt();
+        Comida comida = new Comida(l, c);
+
+        List<Obstaculo> obstaculos = new ArrayList<>();
+        System.out.print("Quantos obstáculos deseja inserir? ");
+        int n = T.nextInt();
+        for (int i = 0; i < n; i++) {
+            System.out.print("Tipo (1=Bomba, 2=Rocha), linha e coluna: ");
+            int tipo = T.nextInt(), ol = T.nextInt(), oc = T.nextInt();
+            String id = "O" + (i+1);
+            if (tipo == 1) obstaculos.add(new Bomba(id, ol, oc));
+            else              obstaculos.add(new Rocha(id, ol, oc));
+        }
+
+        Robo normal      = new Robo("Normal");
+        Robo inteligente = new RoboInteligente("Inteligente");
+        Random rand = new Random();
+
+        while (true) {
+            if (!turno(normal, comida, obstaculos, rand))      break;
+            if (!turno(inteligente, comida, obstaculos, rand)) break;
+        }
+
+        System.out.println("\n--- FIM DE JOGO ---");
+        System.out.println("Movimentos Robo Normal:      " + normal.getMovimentos());
+        System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
+        if (normal.isExplodiu())      System.out.println("Robo Normal explodiu.");
+        if (inteligente.isExplodiu()) System.out.println("Robo Inteligente explodiu.");
+    }
+
+    private static boolean turno(Robo robo, Comida comida, List<Obstaculo> obstaculos, Random rand) throws MovimentoInvalidoException {
+        if (robo.isExplodiu()) return false;
+        int dir = rand.nextInt(4) + 1;
+        try {
+            robo.mover(dir);
+            // checa obstáculos
+            Iterator<Obstaculo> it = obstaculos.iterator();
+            while (it.hasNext()) {
+                Obstaculo o = it.next();
+                if (o.getLinha() == robo.getPosicao()[0] && o.getColuna() == robo.getPosicao()[1]) {
+                    o.bater(robo, obstaculos);
+                    break;
+                }
+            }
+            if (robo.isComida(comida)) {
+                System.out.println("Robo " + robo.getCor() + " encontrou a comida!");
+                return false;
+            }
+        } catch (MovimentoInvalidoException e) {
+            //Só ignora e passa a vez (Fazer um tratamento depois se necessário)
+        }
+        return true;
+    }
     
 }
