@@ -373,12 +373,9 @@ public class Main{
         System.out.println("Movimentos Robo Normal: " + normal.getMovimentos());
         System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
 
-        if (normal.getExplodiu())
+        if (normal.getExplodiu() && inteligente.getExplodiu())
             System.out.println("Robo Normal explodiu.");
-        if (inteligente.getExplodiu())
-            System.out.println("Robo Inteligente explodiu.");
-
-        if (!normal.getExplodiu() && !inteligente.getExplodiu()) {
+        else if (!normal.getExplodiu() && !inteligente.getExplodiu()) {
             System.out.println("Nenhum robô explodiu.");
         }
     }
