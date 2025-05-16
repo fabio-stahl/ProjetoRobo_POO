@@ -34,22 +34,25 @@ public class Main{
                 System.out.print("R ");
                 return true;
             }else if(o instanceof Bomba && o.linha == i && o.coluna == j){
-                System.out.print("B ");
-                return true;
+                Bomba bomba = (Bomba) o;
+                if(bomba.getAtivada()){
+                    System.out.print("B ");
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    private static void mostrarTabuleiro(int[] posicaoRobo1, int[] posicaoRobo2, int[] posicaoComida, List<Obstaculo> obstaculos){
+    private static void mostrarTabuleiro(Robo robo1, Robo robo2, int[] posicaoComida, List<Obstaculo> obstaculos){
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 if(procurarPosObstaculo(i, j, obstaculos)){
                     continue;
                 }
-                if(posicaoRobo1[0] == i && posicaoRobo1[1] == j){
+                if(robo1.getPosicao()[0] == i && robo1.getPosicao()[1] == j && !robo1.getExplodiu()){
                     System.out.print("O ");
-                }else if(posicaoRobo2[0] == i && posicaoRobo2[1] == j){
+                }else if(robo2.getPosicao()[0] == i && robo2.getPosicao()[1] == j && !robo2.getExplodiu()){
                     System.out.print("O ");
                 }else if(posicaoComida[0] == i && posicaoComida[1] == j){
                     System.out.print("C ");
@@ -61,12 +64,12 @@ public class Main{
         }
     }
     
-    private static void mostrarTabuleiro(int[] posicaoRobo1, int[] posicaoRobo2, int[] posicaoComida){
+    private static void mostrarTabuleiro(Robo robo1, Robo robo2, int[] posicaoComida){
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                if(posicaoRobo1[0] == j && posicaoRobo1[1] == i){
+                if(robo1.getPosicao()[0] == j && robo1.getPosicao()[1] == i){
                     System.out.print("O ");
-                }else if(posicaoRobo2[0] == j && posicaoRobo2[1] == i){
+                }else if(robo2.getPosicao()[0] == j && robo2.getPosicao()[1] == i){
                     System.out.print("O ");
                 }else if(posicaoComida[0] == j && posicaoComida[1] == i){
                     System.out.print("C ");
@@ -78,11 +81,11 @@ public class Main{
         }
     }
 
-    private static void mostrarTabuleiro(int[] posicaoRobo, int[] posicaoComida){
-        System.out.println("X: " + posicaoRobo[0] + " | Y: " + posicaoRobo[1]);
+    private static void mostrarTabuleiro(Robo robo, int[] posicaoComida){
+        System.out.println("X: " + robo.getPosicao()[0] + " | Y: " + robo.getPosicao()[1]);
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
-                if(posicaoRobo[0] == j && posicaoRobo[1] == i){
+                if(robo.getPosicao()[0] == j && robo.getPosicao()[1] == i){
                     System.out.print("O ");
                 }else if(posicaoComida[0] == j && posicaoComida[1] == i){
                     System.out.print("C ");
@@ -115,7 +118,7 @@ public class Main{
         comida = new Comida(linha, coluna);
         String direcao;
         while (true) { 
-            mostrarTabuleiro(robo.getPosicao(), comida.getPosicao());
+            mostrarTabuleiro(robo, comida.getPosicao());
             System.out.println("Digite a direção (up, down, left, right) ou sair para sair)");
             direcao = T.next();
             if (direcao.equals("sair")) {
@@ -202,7 +205,7 @@ public class Main{
                 errado1++;
                 System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
             }
-            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             try {
@@ -217,7 +220,7 @@ public class Main{
                 errado2++;
                 System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
             }
-            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
@@ -286,7 +289,7 @@ public class Main{
                 errado1++;
                 System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
             }
-            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             try {
@@ -301,7 +304,7 @@ public class Main{
                 errado2++;
                 System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
             }
-            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
@@ -346,21 +349,21 @@ public class Main{
             System.out.println("\nRODADA " + rodada + " -------------------");
 
             System.out.println(">> Turno do Robo Normal:");
-            if (!turno(normal, comida, obstaculos, rand))
+            if (!turno(normal, inteligente, comida, obstaculos, rand))
                 break;
 
             int[] posNormal = normal.getPosicao();
             int[] posInt = inteligente.getPosicao();
             System.out.println("Posição atual Robo Normal: (" + posNormal[0] + "," + posNormal[1] + ")");
-            mostrarTabuleiro(posNormal, posInt, comida.getPosicao(), obstaculos);
+            mostrarTabuleiro(normal, inteligente, comida.getPosicao(), obstaculos);
             delay();
 
             System.out.println(">> Turno do Robo Inteligente:");
-            if (!turno(inteligente, comida, obstaculos, rand))
+            if (!turno(inteligente, normal, comida, obstaculos, rand))
                 break;
 
             System.out.println("Posição atual Robo Inteligente: (" + posInt[0] + "," + posInt[1] + ")");
-            mostrarTabuleiro(posNormal, posInt, comida.getPosicao(), obstaculos);
+            mostrarTabuleiro(normal, inteligente, comida.getPosicao(), obstaculos);
             delay();
 
             rodada++;
@@ -370,45 +373,48 @@ public class Main{
         System.out.println("Movimentos Robo Normal: " + normal.getMovimentos());
         System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
 
-        if (normal.isExplodiu())
+        if (normal.getExplodiu())
             System.out.println("Robo Normal explodiu.");
-        if (inteligente.isExplodiu())
+        if (inteligente.getExplodiu())
             System.out.println("Robo Inteligente explodiu.");
 
-        if (!normal.isExplodiu() && !inteligente.isExplodiu()) {
+        if (!normal.getExplodiu() && !inteligente.getExplodiu()) {
             System.out.println("Nenhum robô explodiu.");
         }
     }
 
 
-    private static boolean turno(Robo robo, Comida comida, List<Obstaculo> obstaculos, Random rand) throws MovimentoInvalidoException {
-        if (robo.isExplodiu()) return false;
+    private static boolean turno(Robo robo1, Robo robo2, Comida comida, List<Obstaculo> obstaculos, Random rand) throws MovimentoInvalidoException {
+        if(robo1.getExplodiu() && robo2.getExplodiu()){
+            return false;
+        }
+
         int dir = rand.nextInt(4) + 1;
-        robo.lastLinha = robo.getPosicao()[0];
-        robo.lastColuna = robo.getPosicao()[1];
+        robo1.lastLinha = robo1.getPosicao()[0];
+        robo1.lastColuna = robo1.getPosicao()[1];
 
         try {
-            robo.mover(dir);
-            robo.movimentos++;
+            robo1.mover(dir);
+            robo1.movimentos++;
 
             // Verifica obstáculos
             for (Obstaculo o : obstaculos) {
-                if (o.getLinha() == robo.getPosicao()[0] && o.getColuna() == robo.getPosicao()[1]) {
-                    o.bater(robo, obstaculos);
+                if (o.getLinha() == robo1.getPosicao()[0] && o.getColuna() == robo1.getPosicao()[1]) {
+                    o.bater(robo1, obstaculos);
                     break;
                 }
             }
 
             // Verifica comida
-            if (robo.isComida(comida)) {
-                System.out.println("Robo " + robo.getCor() + " encontrou a comida!");
+            if (robo1.isComida(comida)) {
+                System.out.println("Robo " + robo1.getCor() + " encontrou a comida!");
                 return false;
             }
 
         } catch (MovimentoInvalidoException e) {
-            System.out.println("Movimento inválido para o robô " + robo.getCor() + ": " + e.getMessage());
+            System.out.println("Movimento inválido para o robô " + robo1.getCor() + ": " + e.getMessage());
         }
 
-        return !robo.isExplodiu();
+        return true;
     }
 }

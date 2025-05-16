@@ -126,7 +126,7 @@ public class Robo {
         return cor;
     }
 
-    public boolean isExplodiu() {
+    public boolean getExplodiu() {
         return explodiu;
     }
 

@@ -16,4 +16,8 @@ class Bomba extends Obstaculo {
 
         ativada = false;
     }
+
+    public boolean getAtivada(){
+        return ativada;
+    }
 }
