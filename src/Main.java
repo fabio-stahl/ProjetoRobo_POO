@@ -264,6 +264,8 @@ public class Main{
         int errado2 = 0;
         int[] posicao;
         int rodada = 0;
+        int movs1 = 0;
+        int movs2 = 0;
         while (true) { 
             System.out.println("\n***********");
             System.out.println("*Rodada " + rodada + "*");
@@ -271,9 +273,6 @@ public class Main{
             rodada++;
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
-            
-            int movs1 = 0;
-            int movs2 = 0;
 
             try {
                 if (robo1.mover(direcao1)) {
