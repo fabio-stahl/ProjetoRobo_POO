@@ -11,6 +11,7 @@ public class Main{
             System.out.println("3 - Robôs Automáticos (Robô Inteligente vs Robo Normal)");
             System.out.println("4 - Robôs Automáticos com obstáculos (Robo Normal vs Robo Inteligente)");
             System.out.println("0 - Sair");
+            System.out.print("-> ");
             int opc = T.nextInt();
 
             switch (opc) {
@@ -189,13 +190,12 @@ public class Main{
                     correto1++;
                     posicao = robo1.getPosicao();
                     System.out.println("Posição do robô " + robo1.getCor() + ": " + posicao[0] + ", " + posicao[1]);
-                    mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
                 }
             } catch (MovimentoInvalidoException e) {
                 errado1++;
                 System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
             }
-
+            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
             delay();
 
             try {
@@ -203,13 +203,12 @@ public class Main{
                     correto2++;
                     posicao = robo2.getPosicao();
                     System.out.println("Posição do robô " + robo2.getCor() + ": " + posicao[0] + ", " + posicao[1]);
-                    mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
                 }
             } catch (MovimentoInvalidoException e) {
                 errado2++;
                 System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
             }
-
+            mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
             delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
