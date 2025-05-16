@@ -243,7 +243,7 @@ public class Main{
 
         int rodada = 1;
         while (true) {
-            System.out.println("\n📦 RODADA " + rodada + " -------------------");
+            System.out.println("\nRODADA " + rodada + " -------------------");
 
             System.out.println(">> Turno do Robo Normal:");
             if (!turno(normal, comida, obstaculos, rand)) break;
@@ -260,12 +260,12 @@ public class Main{
             rodada++;
         }
 
-        System.out.println("\n--- 🏁 FIM DE JOGO ---");
+        System.out.println("\n--- FIM DE JOGO ---");
         System.out.println("Movimentos Robo Normal: " + normal.getMovimentos());
         System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
 
-        if (normal.isExplodiu()) System.out.println("💥 Robo Normal explodiu.");
-        if (inteligente.isExplodiu()) System.out.println("💥 Robo Inteligente explodiu.");
+        if (normal.isExplodiu()) System.out.println("Robo Normal explodiu.");
+        if (inteligente.isExplodiu()) System.out.println("Robo Inteligente explodiu.");
 
         if (!normal.isExplodiu() && !inteligente.isExplodiu()) {
             System.out.println("Nenhum robô explodiu.");
@@ -293,12 +293,12 @@ public class Main{
 
             // Verifica comida
             if (robo.isComida(comida)) {
-                System.out.println("🍽️ Robo " + robo.getCor() + " encontrou a comida!");
+                System.out.println("Robo " + robo.getCor() + " encontrou a comida!");
                 return false;
             }
 
         } catch (MovimentoInvalidoException e) {
-            System.out.println("⛔ Movimento inválido para o robô " + robo.getCor() + ": " + e.getMessage());
+            System.out.println("Movimento inválido para o robô " + robo.getCor() + ": " + e.getMessage());
         }
 
         return !robo.isExplodiu();
