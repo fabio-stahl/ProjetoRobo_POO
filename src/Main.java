@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Main{
     public static Scanner T = new Scanner(System.in);
+    private static final long DELAY_MS = 1000;
     public static void main(String[] args) throws MovimentoInvalidoException {
         while (true) {
             System.out.println("\nEscolha o modo de jogo:");
@@ -135,6 +136,15 @@ public class Main{
             }
         }
     }
+
+    private static void delay() {
+        try {
+            Thread.sleep(DELAY_MS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     private static void jogarRoboAutomatico() throws MovimentoInvalidoException {
         Robo robo1;
         Robo robo2;
@@ -186,6 +196,8 @@ public class Main{
                 System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
             }
 
+            delay();
+
             try {
                 if (robo2.mover(direcao2)) {
                     correto2++;
@@ -197,6 +209,8 @@ public class Main{
                 errado2++;
                 System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
             }
+
+            delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
@@ -261,6 +275,7 @@ public class Main{
                 System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            delay();
 
             try {
                 if (robo2.mover(direcao2)) {
@@ -273,6 +288,7 @@ public class Main{
                 System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1.getPosicao(), robo2.getPosicao(), comida.getPosicao());
+            delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
@@ -323,6 +339,7 @@ public class Main{
             int[] posInt = inteligente.getPosicao();
             System.out.println("Posição atual Robo Normal: (" + posNormal[0] + "," + posNormal[1] + ")");
             mostrarTabuleiro(posNormal, posInt, comida.getPosicao(), obstaculos);
+            delay();
 
             System.out.println(">> Turno do Robo Inteligente:");
             if (!turno(inteligente, comida, obstaculos, rand))
@@ -330,6 +347,7 @@ public class Main{
 
             System.out.println("Posição atual Robo Inteligente: (" + posInt[0] + "," + posInt[1] + ")");
             mostrarTabuleiro(posNormal, posInt, comida.getPosicao(), obstaculos);
+            delay();
 
             rodada++;
         }
