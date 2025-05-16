@@ -137,5 +137,8 @@ public class Robo {
     public int getMovimentos() {
         return movimentos;
     }
+    public void setMovimentos(int movs){
+        this.movimentos = movs;
+    }
 
 }

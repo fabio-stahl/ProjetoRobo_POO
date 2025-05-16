@@ -97,6 +97,7 @@ public class Main{
     private static void jogarRoboNormal(){
         Robo robo;
         Comida comida;
+        int movs = 0;
 
         System.out.println("Digite a cor do robo:");
         String cor = T.next();
@@ -122,6 +123,8 @@ public class Main{
             }else{
                 try {
                     robo.mover(direcao);
+                    movs += 1;
+                    robo.setMovimentos(movs);
                     if (robo.isComida(comida)) {
                         System.out.println("Comida encontrada!");
                         System.out.println("Movimentos do robô " + robo.getCor() + ": " + robo.getMovimentos());
@@ -177,6 +180,8 @@ public class Main{
         // Inicializa a posição dos robôs
         int[] posicao;
         int rodada = 0;
+        int movs1 = 0;
+        int movs2 = 0;
         while (true) { 
             System.out.println("\n***********");
             System.out.println("*Rodada " + rodada + "*");
@@ -187,6 +192,8 @@ public class Main{
 
             try {
                 if (robo1.mover(direcao1)) {
+                    movs1 += 1;
+                    robo1.setMovimentos(movs1);
                     correto1++;
                     posicao = robo1.getPosicao();
                     System.out.println("Posição do robô " + robo1.getCor() + ": " + posicao[0] + ", " + posicao[1]);
@@ -200,6 +207,8 @@ public class Main{
 
             try {
                 if (robo2.mover(direcao2)) {
+                    movs2 += 1;
+                    robo2.setMovimentos(movs2);
                     correto2++;
                     posicao = robo2.getPosicao();
                     System.out.println("Posição do robô " + robo2.getCor() + ": " + posicao[0] + ", " + posicao[1]);
@@ -262,9 +271,14 @@ public class Main{
             rodada++;
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
+            
+            int movs1 = 0;
+            int movs2 = 0;
 
             try {
                 if (robo1.mover(direcao1)) {
+                    movs1 += 1;
+                    robo1.setMovimentos(movs1);
                     correto1++;
                     posicao = robo1.getPosicao();
                     System.out.println("Posição do robô " + robo1.getCor() + ": " + posicao[0] + ", " + posicao[1]);
@@ -278,6 +292,8 @@ public class Main{
 
             try {
                 if (robo2.mover(direcao2)) {
+                    movs2 += 1;
+                    robo2.setMovimentos(movs2);
                     correto2++;
                     posicao = robo2.getPosicao();
                     System.out.println("Posição do robô " + robo2.getCor() + ": " + posicao[0] + ", " + posicao[1]);
