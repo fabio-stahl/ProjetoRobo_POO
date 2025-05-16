@@ -10,10 +10,10 @@ public class Robo {
 
     public Robo(String cor) {
         this.cor = cor;
-        this.linha = 0;
-        this.coluna = 0;
-        this.lastColuna = 0;
-        this.lastLinha = 0;
+        this.linha = 1;
+        this.coluna = 1;
+        this.lastColuna = 1;
+        this.lastLinha = 1;
         this.explodiu = false;
         this.movimentos = 0;
     }
