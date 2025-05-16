@@ -12,8 +12,8 @@ public class Robo {
         this.cor = cor;
         this.linha = 0;
         this.coluna = 0;
-        this.lastColuna = 1;
-        this.lastLinha = 1;
+        this.lastColuna = 0;
+        this.lastLinha = 0;
         this.explodiu = false;
         this.movimentos = 0;
     }
@@ -136,6 +136,9 @@ public class Robo {
 
     public int getMovimentos() {
         return movimentos;
+    }
+    public void setMovimentos(int movs){
+        this.movimentos = movs;
     }
 
 }
