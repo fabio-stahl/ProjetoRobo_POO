@@ -13,5 +13,7 @@
         "c:\\Program Files\\Java\\javafx-sdk-24.0.1\\lib\\jfx.incubator.input.jar",
         "c:\\Program Files\\Java\\javafx-sdk-24.0.1\\lib\\jfx.incubator.richtext.jar"
     ],
-    "java.project.sourcePaths": ["src"]
+    "java.project.sourcePaths": [
+        "src"
+    ]
 }

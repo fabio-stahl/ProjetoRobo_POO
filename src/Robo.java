@@ -3,15 +3,15 @@ public class Robo {
     protected int coluna;
     protected int lastLinha, lastColuna;
     protected String cor;
-    protected int maxLinhas = 5;
-    protected int maxColunas = 5;
+    protected int maxLinhas = 4;
+    protected int maxColunas = 4;
     protected boolean explodiu;
     protected int movimentos;
 
     public Robo(String cor) {
         this.cor = cor;
-        this.linha = 1;
-        this.coluna = 1;
+        this.linha = 0;
+        this.coluna = 0;
         this.lastColuna = 1;
         this.lastLinha = 1;
         this.explodiu = false;
@@ -23,8 +23,8 @@ public class Robo {
         lastColuna = coluna;
         switch (direcao.toLowerCase()) {
             case "up" -> {
-                if (linha > 0) {
-                    linha--;
+                if (coluna > 0) {
+                    coluna--;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
@@ -32,8 +32,8 @@ public class Robo {
             }
 
             case "down" -> {
-                if (linha < maxLinhas - 1) {
-                    linha++;
+                if (coluna < maxColunas - 1) {
+                    coluna++;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
@@ -41,8 +41,8 @@ public class Robo {
             }
 
             case "left" -> {
-                if (coluna > 0) {
-                    coluna--;
+                if (linha > 0) {
+                    linha--;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
@@ -50,8 +50,8 @@ public class Robo {
             }
 
             case "right" -> {
-                if (coluna < maxColunas - 1) {
-                    coluna++;
+                if (linha < maxLinhas - 1) {
+                    linha++;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
@@ -67,8 +67,8 @@ public class Robo {
         switch (direcao) {
             case 1 -> {
                 // Cima
-                if (linha > 0) {
-                    linha--;
+                if (coluna > 0) {
+                    coluna--;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
@@ -77,8 +77,8 @@ public class Robo {
 
             case 2 -> {
                 // Baixo
-                if (linha < maxLinhas - 1) {
-                    linha++;
+                if (coluna < maxColunas - 1) {
+                    coluna++;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
@@ -87,8 +87,8 @@ public class Robo {
 
             case 4 -> {
                 // Esquerda
-                if (coluna > 0) {
-                    coluna--;
+                if (linha > 0) {
+                    linha--;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
@@ -97,8 +97,8 @@ public class Robo {
 
             case 3 -> {
                 // Direita
-                if (coluna < maxColunas - 1) {
-                    coluna++;
+                if (linha < maxLinhas - 1) {
+                    linha++;
                     return true;
                 } else {
                     throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
