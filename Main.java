@@ -13,15 +13,15 @@ public class Main{
             int opc = T.nextInt();
 
             switch (opc) {
-                case 1: jogarRoboNormal(); break;
-                case 2: jogarRoboAutomatico(); break;
-                case 3: jogarRoboXRoboInteligente(); break;
-                case 4: jogarComObstaculos(); break;
-                case 5:
+                case 1 -> jogarRoboNormal();
+                case 2 -> jogarRoboAutomatico();
+                case 3 -> jogarRoboxRoboInteligente();
+                case 4 -> jogarComObstaculos();
+                case 5 -> {
                     System.out.println("Saindo do jogo.");
                     return;
-                default:
-                    System.out.println("Opção inválida.");
+                }
+                default -> System.out.println("Opção inválida.");
             }
         }
     }
@@ -56,6 +56,7 @@ public class Main{
                     System.out.println("Posição do robô: " + posicao[0] + ", " + posicao[1]);
                     if (robo.isComida(comida)) {
                         System.out.println("Comida encontrada!");
+                        System.out.println("Movimentos do robô " + robo.getCor() + ": " + robo.getMovimentos());
                         break;
                     }
                 } catch (MovimentoInvalidoException e) {
@@ -98,8 +99,12 @@ public class Main{
         int errado2 = 0;
         // Inicializa a posição dos robôs
         int[] posicao;
-
+        int rodada = 0;
         while (true) { 
+            System.out.println("\n***************");
+            System.out.println("*Rodada " + rodada + "*");
+            System.out.println("***************");
+            rodada++;
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
 
@@ -128,8 +133,10 @@ public class Main{
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
                     System.out.println("Comida encontrada pelo robô 1!");
+                    System.out.println("Movimentos do robô " + robo1.getCor() + ": " + robo1.getMovimentos());
                 } else {
                     System.out.println("Comida encontrada pelo robô 2!");
+                    System.out.println("Movimentos do robô " + robo2.getCor() + ": " + robo2.getMovimentos());
                 }
                 break;
             }
@@ -137,7 +144,7 @@ public class Main{
 
     }
 
-    private static void JogarRoboxRoboInteligente() {
+    private static void jogarRoboxRoboInteligente() {
         Robo robo1;
         Robo robo2;
         Comida comida;
@@ -166,8 +173,12 @@ public class Main{
         int errado1 = 0;
         int errado2 = 0;
         int[] posicao;
-
+        int rodada = 0;
         while (true) { 
+            System.out.println("\n***************");
+            System.out.println("*Rodada " + rodada + "*");
+            System.out.println("***************");
+            rodada++;
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
 
@@ -196,8 +207,10 @@ public class Main{
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
                     System.out.println("Comida encontrada pelo robô inteligente!");
+                    System.out.println("Movimentos do robô " + robo1.getCor() + ": " + robo1.getMovimentos());
                 } else {
                     System.out.println("Comida encontrada pelo robô 2!");
+                    System.out.println("Movimentos do robô " + robo2.getCor() + ": " + robo2.getMovimentos());
                 }
                 break;
             }
@@ -240,6 +253,9 @@ public class Main{
         System.out.println("Movimentos Robo Inteligente: " + inteligente.getMovimentos());
         if (normal.isExplodiu()) System.out.println("Robo Normal explodiu.");
         if (inteligente.isExplodiu()) System.out.println("Robo Inteligente explodiu.");
+        if (!normal.isExplodiu() && !inteligente.isExplodiu()) {
+            System.out.println("Nenhum robô explodiu.");
+        }
     }
 
     private static boolean turno(Robo robo, Comida comida, List<Obstaculo> obstaculos, Random rand) throws MovimentoInvalidoException {

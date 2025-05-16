@@ -5,6 +5,7 @@ public class RoboInteligente extends Robo{
         super(cor);
         this.movimentoAnterior = 0;
     }
+    @Override
     public boolean mover(int direcao) throws MovimentoInvalidoException {
         if (direcao == movimentoAnterior) {
             throw new MovimentoInvalidoException("Movimento inválido: já se moveu nessa direção.");

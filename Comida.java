@@ -3,9 +3,9 @@ public class Comida {
     private int coluna;
 
 
-    public Comida(int coluna, int linha) {
-        this.coluna = coluna;
+    public Comida(int linha, int coluna) {
         this.linha = linha;
+        this.coluna = coluna;
     }
     public int[] getPosicao() {
         return new int []{linha, coluna};
