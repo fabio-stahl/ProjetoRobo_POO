@@ -51,9 +51,9 @@ public class Main{
                     continue;
                 }
                 if(robo1.getPosicao()[0] == i && robo1.getPosicao()[1] == j && !robo1.getExplodiu()){
-                    System.out.print("O ");
+                    System.out.print(robo1.getCor() + "O " + "\u001B[0m");
                 }else if(robo2.getPosicao()[0] == i && robo2.getPosicao()[1] == j && !robo2.getExplodiu()){
-                    System.out.print("O ");
+                    System.out.print(robo2.getCor() + "O " + "\u001B[0m");
                 }else if(posicaoComida[0] == i && posicaoComida[1] == j){
                     System.out.print("C ");
                 }else{
@@ -68,9 +68,9 @@ public class Main{
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 if(robo1.getPosicao()[0] == j && robo1.getPosicao()[1] == i){
-                    System.out.print("O ");
+                    System.out.print(robo1.getCor() + "O " + "\u001B[0m");
                 }else if(robo2.getPosicao()[0] == j && robo2.getPosicao()[1] == i){
-                    System.out.print("O ");
+                    System.out.print(robo2.getCor() + "O " + "\u001B[0m");
                 }else if(posicaoComida[0] == j && posicaoComida[1] == i){
                     System.out.print("C ");
                 }else{
@@ -86,7 +86,7 @@ public class Main{
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 4; j++){
                 if(robo.getPosicao()[0] == j && robo.getPosicao()[1] == i){
-                    System.out.print("O ");
+                    System.out.print(robo.getCor() + "O " + "\u001B[0m");
                 }else if(posicaoComida[0] == j && posicaoComida[1] == i){
                     System.out.print("C ");
                 }else{
@@ -102,12 +102,46 @@ public class Main{
         Comida comida;
         int movs = 0;
 
+        System.out.println("\n>>> MODO: Robo Manual");
         System.out.println("Digite a cor do robo:");
-        String cor = T.next();
+        System.out.println("1. " + "\u001B[31m" + "Vermelho"+ "\u001B[0m");
+        System.out.println("2. " + "\u001B[32m" + "Verde"+ "\u001B[0m");
+        System.out.println("3. " + "\u001B[33m" + "Amarelo"+ "\u001B[0m");
+        System.out.println("4. " + "\u001B[34m" + "Azul"+ "\u001B[0m");
+        System.out.println("5. " + "\u001B[35m" + "Roxo"+ "\u001B[0m");
+        System.out.println("6. " + "\u001B[36m" + "Ciano"+ "\u001B[0m");
+        System.out.print("-> ");
+        int esc = T.nextInt();
+        String cor;
+        switch (esc) {
+            case 1:
+                cor = "\u001B[31m";
+                break;
+            case 2:
+                cor = "\u001B[32m";
+                break;
+            case 3:
+                cor = "\u001B[33m";
+                break;
+            case 4:
+                cor = "\u001B[34m";
+                break;
+            case 5:
+                cor = "\u001B[35m";
+                break;
+            case 6:
+                cor = "\u001B[36m";
+                break;
+            default:
+                System.out.println("Cor inválida. Tente novamente.");
+                return;
+        }
         robo = new Robo(cor);
 
         System.out.println("Digite a linha e a coluna da comida:");
+        System.out.print("-> linha: ");
         int linha = T.nextInt();
+        System.out.print("-> coluna: ");
         int coluna = T.nextInt();
 
         if (linha < 0 || linha > 4 || coluna < 0 || coluna > 4) {
@@ -130,7 +164,7 @@ public class Main{
                     robo.setMovimentos(movs);
                     if (robo.isComida(comida)) {
                         System.out.println("Comida encontrada!");
-                        System.out.println("Movimentos do robô " + robo.getCor() + ": " + robo.getMovimentos());
+                        System.out.println("Movimentos do robô " + robo.getCor() + "manual" + "\u001B[0m" + ": " + robo.getMovimentos());
                         break;
                     }
                 } catch (MovimentoInvalidoException e) {
@@ -157,29 +191,90 @@ public class Main{
         Robo robo2;
         Comida comida;
         
-        System.out.println("Digite a cor do robô 1:");
-        String cor = T.next();
-        robo1 = new Robo(cor);
+        System.out.println("\n>>> MODO: Robô Automático (Robô Normal vs Robô Normal)");
+        System.out.println("\nDigite a cor do robo 1:");
+        System.out.println("1. " + "\u001B[31m" + "Vermelho"+ "\u001B[0m");
+        System.out.println("2. " + "\u001B[32m" + "Verde"+ "\u001B[0m");
+        System.out.println("3. " + "\u001B[33m" + "Amarelo"+ "\u001B[0m");
+        System.out.println("4. " + "\u001B[34m" + "Azul"+ "\u001B[0m");
+        System.out.println("5. " + "\u001B[35m" + "Roxo"+ "\u001B[0m");
+        System.out.println("6. " + "\u001B[36m" + "Ciano"+ "\u001B[0m");
+        System.out.print("-> ");
+        int esc1 = T.nextInt();
+        String cor1;
+        switch (esc1) {
+            case 1:
+                cor1 = "\u001B[31m";
+                break;
+            case 2:
+                cor1 = "\u001B[32m";
+                break;
+            case 3:
+                cor1 = "\u001B[33m";
+                break;
+            case 4:
+                cor1 = "\u001B[34m";
+                break;
+            case 5:
+                cor1 = "\u001B[35m";
+                break;
+            case 6:
+                cor1 = "\u001B[36m";
+                break;
+            default:
+                System.out.println("Cor inválida. Tente novamente.");
+                return;
+        }
+        robo1 = new Robo(cor1);
 
-        System.out.println("Digite a cor do robô 2:");
-        cor = T.next();
-        robo2 = new Robo(cor);
+        System.out.println("\nDigite a cor do robo 2:");
+        System.out.println("1. " + "\u001B[31m" + "Vermelho"+ "\u001B[0m");
+        System.out.println("2. " + "\u001B[32m" + "Verde"+ "\u001B[0m");
+        System.out.println("3. " + "\u001B[33m" + "Amarelo"+ "\u001B[0m");
+        System.out.println("4. " + "\u001B[34m" + "Azul"+ "\u001B[0m");
+        System.out.println("5. " + "\u001B[35m" + "Roxo"+ "\u001B[0m");
+        System.out.println("6. " + "\u001B[36m" + "Ciano"+ "\u001B[0m");
+        System.out.print("-> ");
+        int esc2 = T.nextInt();
+        String cor2;
+        switch (esc2) {
+            case 1:
+                cor2 = "\u001B[31m";
+                break;
+            case 2:
+                cor2 = "\u001B[32m";
+                break;
+            case 3:
+                cor2 = "\u001B[33m";
+                break;
+            case 4:
+                cor2 = "\u001B[34m";
+                break;
+            case 5:
+                cor2 = "\u001B[35m";
+                break;
+            case 6:
+                cor2 = "\u001B[36m";
+                break;
+            default:
+                System.out.println("Cor inválida. Tente novamente.");
+                return;
+        }
+        robo2 = new Robo(cor2);
 
         System.out.println("Digite a linha e a coluna da comida:");
+        System.out.print("-> linha: ");
         int linha = T.nextInt();
+        System.out.print("-> coluna: ");
         int coluna = T.nextInt();
 
-        if (linha < 0 || linha > 4 || coluna < 0 || coluna > 4) {
+        if (linha < 0 || linha > 3 || coluna < 0 || coluna > 3) {
             System.out.println("Posição inválida da comida. Tente novamente.");
             return;
         }
 
         comida = new Comida(linha, coluna);
         Random rand = new Random();
-        int correto1 = 0;
-        int correto2 = 0;
-        int errado1 = 0;
-        int errado2 = 0;
         // Inicializa a posição dos robôs
         int[] posicao;
         int rodada = 0;
@@ -197,13 +292,11 @@ public class Main{
                 if (robo1.mover(direcao1)) {
                     movs1 += 1;
                     robo1.setMovimentos(movs1);
-                    correto1++;
                     posicao = robo1.getPosicao();
-                    System.out.println("Posição do robô " + robo1.getCor() + ": " + posicao[0] + ", " + posicao[1]);
+                    System.out.println("Posição do " + robo1.getCor() + "robô normal 1" + "\u001B[0m" + ": " + posicao[0] + ", " + posicao[1]);
                 }
             } catch (MovimentoInvalidoException e) {
-                errado1++;
-                System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
+                System.out.println("Erro no " + robo1.getCor() + "robô normal 1" + "\u001B[0m" + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
@@ -212,25 +305,23 @@ public class Main{
                 if (robo2.mover(direcao2)) {
                     movs2 += 1;
                     robo2.setMovimentos(movs2);
-                    correto2++;
                     posicao = robo2.getPosicao();
-                    System.out.println("Posição do robô " + robo2.getCor() + ": " + posicao[0] + ", " + posicao[1]);
+                    System.out.println("Posição do " + robo2.getCor() + "robô normal 2" + "\u001B[0m" + ": " + posicao[0] + ", " + posicao[1]);
                 }
             } catch (MovimentoInvalidoException e) {
-                errado2++;
-                System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
+                System.out.println("Erro no " + robo2.getCor() + "robô normal 2" + "\u001B[0m" + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
-                    System.out.println("Comida encontrada pelo robô 1!");
+                    System.out.println("Comida encontrada pelo " + robo1.getCor() + "robô normal 1!" + "\u001B[0m");
                 } else {
-                    System.out.println("Comida encontrada pelo robô 2!");
+                    System.out.println("Comida encontrada pelo " + robo1.getCor() + "robô normal 2!" + "\u001B[0m");
                 }
-                System.out.println("Movimentos do robô " + robo1.getCor() + ": " + robo1.getMovimentos());
-                System.out.println("Movimentos do robô " + robo2.getCor() + ": " + robo2.getMovimentos());
+                System.out.println("Movimentos do " + robo1.getCor() + "robô normal 1" + "\u001B[0m" + ": " + robo1.getMovimentos());
+                System.out.println("Movimentos do " + robo2.getCor() + "robô normal 2" + "\u001B[0m" + ": " + robo2.getMovimentos());
                 break;
             }
         }
@@ -242,29 +333,90 @@ public class Main{
         Robo robo2;
         Comida comida;
         
-        System.out.println("Digite a cor do robô inteligente :");
-        String cor = T.next();
-        robo1 = new RoboInteligente(cor);
+        System.out.println("\n>>> MODO: Robô Automático (Robô Inteligente vs Robô Normal)");
+        System.out.println("\nDigite a cor do robô inteligente:");
+        System.out.println("1. " + "\u001B[31m" + "Vermelho"+ "\u001B[0m");
+        System.out.println("2. " + "\u001B[32m" + "Verde"+ "\u001B[0m");
+        System.out.println("3. " + "\u001B[33m" + "Amarelo"+ "\u001B[0m");
+        System.out.println("4. " + "\u001B[34m" + "Azul"+ "\u001B[0m");
+        System.out.println("5. " + "\u001B[35m" + "Roxo"+ "\u001B[0m");
+        System.out.println("6. " + "\u001B[36m" + "Ciano"+ "\u001B[0m");
+        System.out.print("-> ");
+        int esc1 = T.nextInt();
+        String cor1;
+        switch (esc1) {
+            case 1:
+                cor1 = "\u001B[31m";
+                break;
+            case 2:
+                cor1 = "\u001B[32m";
+                break;
+            case 3:
+                cor1 = "\u001B[33m";
+                break;
+            case 4:
+                cor1 = "\u001B[34m";
+                break;
+            case 5:
+                cor1 = "\u001B[35m";
+                break;
+            case 6:
+                cor1 = "\u001B[36m";
+                break;
+            default:
+                System.out.println("Cor inválida. Tente novamente.");
+                return;
+        }
+        robo1 = new RoboInteligente(cor1);
 
-        System.out.println("Digite a cor do robô 2:");
-        cor = T.next();
-        robo2 = new Robo(cor);
+        System.out.println("\nDigite a cor do robô normal:");
+        System.out.println("1. " + "\u001B[31m" + "Vermelho"+ "\u001B[0m");
+        System.out.println("2. " + "\u001B[32m" + "Verde"+ "\u001B[0m");
+        System.out.println("3. " + "\u001B[33m" + "Amarelo"+ "\u001B[0m");
+        System.out.println("4. " + "\u001B[34m" + "Azul"+ "\u001B[0m");
+        System.out.println("5. " + "\u001B[35m" + "Roxo"+ "\u001B[0m");
+        System.out.println("6. " + "\u001B[36m" + "Ciano"+ "\u001B[0m");
+        System.out.print("-> ");
+        int esc2 = T.nextInt();
+        String cor2;
+        switch (esc2) {
+            case 1:
+                cor2 = "\u001B[31m";
+                break;
+            case 2:
+                cor2 = "\u001B[32m";
+                break;
+            case 3:
+                cor2 = "\u001B[33m";
+                break;
+            case 4:
+                cor2 = "\u001B[34m";
+                break;
+            case 5:
+                cor2 = "\u001B[35m";
+                break;
+            case 6:
+                cor2 = "\u001B[36m";
+                break;
+            default:
+                System.out.println("Cor inválida. Tente novamente.");
+                return;
+        }
+        robo2 = new Robo(cor2);
 
         System.out.println("Digite a linha e a coluna da comida:");
+        System.out.print("-> linha: ");
         int linha = T.nextInt();
+        System.out.print("-> coluna: ");
         int coluna = T.nextInt();
 
-        if (linha < 0 || linha > 4 || coluna < 0 || coluna > 4) {
+        if (linha < 0 || linha > 3 || coluna < 0 || coluna > 3) {
             System.out.println("Posição inválida da comida. Tente novamente.");
             return;
         }
 
         comida = new Comida(linha, coluna);
         Random rand = new Random();
-        int correto1 = 0;
-        int correto2 = 0;
-        int errado1 = 0;
-        int errado2 = 0;
         int[] posicao;
         int rodada = 0;
         int movs1 = 0;
@@ -281,13 +433,11 @@ public class Main{
                 if (robo1.mover(direcao1)) {
                     movs1 += 1;
                     robo1.setMovimentos(movs1);
-                    correto1++;
                     posicao = robo1.getPosicao();
-                    System.out.println("Posição do robô " + robo1.getCor() + ": " + posicao[0] + ", " + posicao[1]);
+                    System.out.println("Posição do " + robo1.getCor() + "robô inteligente" + "\u001B[0m" + ": " + posicao[0] + ", " + posicao[1]);
                 }
             } catch (MovimentoInvalidoException e) {
-                errado1++;
-                System.out.println("Erro no robô " + robo1.getCor() + ": " + e.getMessage());
+                System.out.println("Erro no " + robo1.getCor() + "robô inteligente" + "\u001B[0m" + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
@@ -296,25 +446,23 @@ public class Main{
                 if (robo2.mover(direcao2)) {
                     movs2 += 1;
                     robo2.setMovimentos(movs2);
-                    correto2++;
                     posicao = robo2.getPosicao();
-                    System.out.println("Posição do robô " + robo2.getCor() + ": " + posicao[0] + ", " + posicao[1]);
+                    System.out.println("Posição do " + robo2.getCor() + "robô normal" + "\u001B[0m" + ": " + posicao[0] + ", " + posicao[1]);
                 }
             } catch (MovimentoInvalidoException e) {
-                errado2++;
-                System.out.println("Erro no robô " + robo2.getCor() + ": " + e.getMessage());
+                System.out.println("Erro no " + robo2.getCor() + "robô normal" + "\u001B[0m" + ": " + e.getMessage());
             }
             mostrarTabuleiro(robo1, robo2, comida.getPosicao());
             delay();
 
             if (robo1.isComida(comida) || robo2.isComida(comida)) {
                 if (robo1.isComida(comida)) {
-                    System.out.println("Comida encontrada pelo robô inteligente!");
+                    System.out.println("Comida encontrada pelo" + robo1.getCor() + "robô inteligente!" + "\u001B[0m");
                 } else {
-                    System.out.println("Comida encontrada pelo robô 2!");
+                    System.out.println("Comida encontrada pelo" + robo2.getCor() + "robô normal!" + "\u001B[0m");
                 }
-                System.out.println("Movimentos do robô " + robo1.getCor() + ": " + robo1.getMovimentos());
-                System.out.println("Movimentos do robô " + robo2.getCor() + ": " + robo2.getMovimentos());
+                System.out.println("Movimentos do " + robo1.getCor() + "robô inteligente" + "\u001B[0m" + ": " + robo1.getMovimentos());
+                System.out.println("Movimentos do " + robo2.getCor() + "robô normal" + "\u001B[0m" + ": " + robo2.getMovimentos());
                 break;
             }
         }
@@ -323,18 +471,41 @@ public class Main{
 
     private static void jogarComObstaculos() throws MovimentoInvalidoException {
         System.out.println("\n>>> MODO: Robo Normal vs Robo Inteligente (com Obstáculos)");
-        System.out.print("Digite a linha e a coluna da comida (0–4): ");
-        int l = T.nextInt(), c = T.nextInt();
+        System.out.println("\nDigite a linha e a coluna da comida: ");
+        System.out.print("-> linha: ");
+        int l = T.nextInt();
+        System.out.print("-> coluna: ");
+        int c = T.nextInt();
+        if(l < 0 || l > 3 || c < 0 || c > 3){
+            System.out.println("Posição inválida da comida. Tente novamente.");
+            return;
+        }
         Comida comida = new Comida(l, c);
 
         List<Obstaculo> obstaculos = new ArrayList<>();
-        System.out.print("Quantos obstáculos deseja inserir? ");
+        System.out.println("\nQuantos obstáculos deseja inserir?");
+        System.out.print("-> ");
         int n = T.nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.print("Tipo (1=Bomba, 2=Rocha): ");
+            System.out.println("\n[1 : Bomba | 2 : Rocha]");
+            System.out.print("-> Tipo do obstáculo " + (i + 1) + ": ");
             int tipo = T.nextInt();
-            System.out.print("Linha e coluna do Obstáculo: ");
-            int ol = T.nextInt(), oc = T.nextInt();
+            if(tipo < 1 || tipo > 2){
+                System.out.println("Tipo inválido. Tente novamente.");
+                return;
+            }
+
+            System.out.println("Linha e coluna do Obstáculo " + (i + 1) + ":");
+            System.out.print("-> linha: ");
+            int ol = T.nextInt();
+            System.out.print("-> coluna: ");
+            int oc = T.nextInt();
+
+            if(ol < 0 || ol > 3 || oc < 0 || oc > 3){
+                i--;
+                continue;
+            }
+
             String id = "O" + (i + 1);
             if (tipo == 1) obstaculos.add(new Bomba(id, ol, oc));
             else obstaculos.add(new Rocha(id, ol, oc));
