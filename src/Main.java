@@ -30,10 +30,10 @@ public class Main{
 
     private static boolean procurarPosObstaculo(int i, int j, List<Obstaculo> obstaculos){
         for(Obstaculo o : obstaculos){
-            if(o instanceof Rocha && o.linha == j && o.coluna == i){
+            if(o instanceof Rocha && o.linha == i && o.coluna == j){
                 System.out.print("R ");
                 return true;
-            }else if(o instanceof Bomba && o.linha == j && o.coluna == i){
+            }else if(o instanceof Bomba && o.linha == i && o.coluna == j){
                 Bomba bomba = (Bomba) o;
                 if(bomba.getAtivada()){
                     System.out.print("B ");
