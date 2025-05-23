@@ -325,7 +325,7 @@ public class Main{
         comida = new Comida(linha, coluna);
         Random rand = new Random();
         // Inicializa a posição dos robôs
-        int rodada = 1;
+        int rodada = 0;
         int movs1 = 0;
         int movs2 = 0;
         while (true) { 
@@ -333,6 +333,11 @@ public class Main{
             System.out.println("*Rodada " + rodada + "*");
             System.out.println("***********");
             rodada++;
+            if (rodada == 1) {
+                System.out.println("Tabuleiro Inicial:");
+                mostrarTabuleiro(robo1, robo2, comida.getPosicao());
+                continue;
+            }
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
 
@@ -495,8 +500,7 @@ public class Main{
 
         comida = new Comida(linha, coluna);
         Random rand = new Random();
-        int[] posicao;
-        int rodada = 1;
+        int rodada = 0;
         int movs1 = 0;
         int movs2 = 0;
         while (true) { 
@@ -504,6 +508,11 @@ public class Main{
             System.out.println("*Rodada " + rodada + "*");
             System.out.println("***********");
             rodada++;
+            if(rodada == 1){
+                System.out.println("Tabuleiro Inicial:");
+                mostrarTabuleiro(robo1, robo2, comida.getPosicao());
+                continue;
+            }
             int direcao1 = rand.nextInt(4) + 1;
             int direcao2 = rand.nextInt(4) + 1;
 
@@ -511,7 +520,6 @@ public class Main{
                 if (robo1.mover(direcao1)) {
                     movs1 += 1;
                     robo1.setMovimentos(movs1);
-                    posicao = robo1.getPosicao();
                     
                     System.out.print(robo1.getCor() + "Robô inteligente " + RESET + "se move para: ");
                     switch(direcao1){
@@ -541,7 +549,6 @@ public class Main{
                 if (robo2.mover(direcao2)) {
                     movs2 += 1;
                     robo2.setMovimentos(movs2);
-                    posicao = robo2.getPosicao();
                     
                     System.out.print(robo2.getCor() + "Robô normal " + RESET + "se move para: ");
                     switch(direcao2){
@@ -695,11 +702,17 @@ public class Main{
 
         Random rand = new Random();
 
-        int rodada = 1;
+        int rodada = 0;
         while (true) {
             System.out.println("\n***********");
             System.out.println("*Rodada " + rodada + "*");
             System.out.println("***********");
+            rodada++;
+            if(rodada == 1){
+                System.out.println("Tabuleiro Inicial:");
+                mostrarTabuleiro(normal, inteligente, comida.getPosicao(), obstaculos);
+                continue;
+            }
 
             System.out.println(">> Turno do " + normal.getCor() + "robô normal" + RESET + ":");
             if (!turno(normal, inteligente, comida, obstaculos, rand))
@@ -715,7 +728,6 @@ public class Main{
             mostrarTabuleiro(normal, inteligente, comida.getPosicao(), obstaculos);
             delay();
 
-            rodada++;
         }
 
         System.out.println("\n--- FIM DE JOGO ---");
