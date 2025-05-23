@@ -3,6 +3,7 @@ public abstract class Obstaculo {
     protected String id;
     protected int linha;
     protected int coluna;
+    protected String RESET = "\u001B[0m";
 
     public Obstaculo(String id, int linha, int coluna) {
         this.id = id;

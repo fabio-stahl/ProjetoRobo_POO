@@ -10,7 +10,7 @@ class Bomba extends Obstaculo {
     public void bater(Robo robo, List<Obstaculo> lista) {
         if (!ativada) return;
         
-        System.out.println(robo.getCor() + "Robô" + "\u001B[0m" + " explodiu na bomba " + id + "!");
+        System.out.println(robo.getCor() + "Robô" + RESET + " explodiu na bomba " + id + "!");
         robo.setExplodiu(true);
         lista.remove(this);
 
