@@ -1,16 +1,98 @@
+import java.util.ArrayList;
+import java.util.*;
+
 public class RoboInteligente extends Robo{
-    private int movimentoAnterior;
+    private ArrayList<int[]> posicoesInvalidas = new ArrayList<>();
+    private int[] posicaoAnterior = new int[2];
+    private Random rand = new Random();
 
     public RoboInteligente(String cor) {
         super(cor);
-        this.movimentoAnterior = 0;
     }
+
+    public boolean verificarPosicao(int linha, int coluna){
+        for(int i = 0; i < posicoesInvalidas.size(); i++){
+            if(posicoesInvalidas.get(i)[0] == linha && posicoesInvalidas.get(i)[1] == coluna)
+                return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean mover(int direcao) throws MovimentoInvalidoException {
-        if (direcao == movimentoAnterior) {
-            throw new MovimentoInvalidoException("Movimento inválido: já se moveu nessa direção.");
+        lastLinha = linha;
+        lastColuna = coluna;
+        while(true){
+            switch (direcao) {
+                case 1:
+                    // Cima
+                    if(!verificarPosicao((linha - 1), coluna) || (linha - 1) == posicaoAnterior[0] && coluna == posicaoAnterior[1]){
+                        direcao = rand.nextInt(4) + 1;
+                        System.out.println("REAVALIANDO DIREÇÃO. (" + (linha - 1) + ", " + coluna + ") inválido");
+                        continue;
+                    }
+                    if (linha > 0) {
+                        linha--;
+                        posicaoAnterior[0] = linha;
+                        posicaoAnterior[1] = coluna;
+                        return true;
+                    } else {
+                        int[] coordenadas = {(linha - 1), coluna};
+                        posicoesInvalidas.add(coordenadas);
+                        throw new MovimentoInvalidoException("Movimento inválido: já está no topo.");
+                    }
+
+                case 2:
+                    // Baixo
+                    if(!verificarPosicao((linha + 1), coluna) || (linha + 1) == posicaoAnterior[0] && coluna == posicaoAnterior[1]){
+                        direcao = rand.nextInt(4) + 1;
+                        System.out.println("REAVALIANDO DIREÇÃO. (" + (linha + 1) + ", " + coluna + ") inválido");
+                        continue;
+                    }
+                    if (linha < maxLinhas - 1) {
+                        linha++;
+                        return true;
+                    } else {
+                        int[] coordenadas = {(linha + 1), coluna};
+                        posicoesInvalidas.add(coordenadas);
+                        throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
+                    }
+
+                case 3:
+                    // Direita
+                    if(!verificarPosicao(linha, (coluna + 1)) || linha == posicaoAnterior[0] && (coluna + 1) == posicaoAnterior[1]){
+                        direcao = rand.nextInt(4) + 1;
+                        System.out.println("REAVALIANDO DIREÇÃO. (" + linha + ", " + (coluna + 1) + ") inválido");
+                        continue;
+                    }
+                    if (coluna < maxColunas - 1) {
+                        coluna++;
+                        return true;
+                    } else {
+                        int[] coordenadas = {linha, (coluna + 1)};
+                        posicoesInvalidas.add(coordenadas);
+                        throw new MovimentoInvalidoException("Movimento inválido: já está à direita.");
+                    }
+
+                case 4:
+                    // Esquerda
+                    if(!verificarPosicao(linha, (coluna - 1)) || linha == posicaoAnterior[0] && (coluna - 1) == posicaoAnterior[1]){
+                        direcao = rand.nextInt(4) + 1;
+                        System.out.println("REAVALIANDO DIREÇÃO. (" + linha + ", " + (coluna - 1) + ") inválido");
+                        continue;
+                    }
+                    if (coluna > 0) {
+                        coluna--;
+                        return true;
+                    } else {
+                        int[] coordenadas = {linha, (coluna - 1)};
+                        posicoesInvalidas.add(coordenadas);
+                        throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
+                    }
+
+                default:
+                    throw new MovimentoInvalidoException("Direção inválida: " + direcao + ". Não é um número válido.");
+            }
         }
-        movimentoAnterior = direcao;
-        return super.mover(direcao);
     }
 }
