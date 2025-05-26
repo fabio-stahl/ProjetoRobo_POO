@@ -2,7 +2,18 @@ import java.util.*;
 
 public class Main{
     public static Scanner T = new Scanner(System.in);
-    static Jogo jogo = new Jogo();
+    static Modo modo;
+
+    //cores
+    public static final String RESET = "\u001B[0m";
+    public static final String VERDE = "\u001B[32m";
+    public static final String AMARELO = "\u001B[38;5;226m";
+    public static final String AZUL = "\u001B[34m";
+    public static final String ROXO = "\u001B[38;5;135m";
+    public static final String VERMELHO = "\u001B[38;5;196m";
+    public static final String ROSA = "\u001B[38;5;205m";
+
+    public static final String ERRO_COR = "\u001B[38;5;202m";
     
 
     public static void main(String[] args) throws MovimentoInvalidoException {
@@ -17,15 +28,27 @@ public class Main{
             int opc = T.nextInt();
 
             switch (opc) {
-                case 1 -> jogo.jogarRoboNormal();
-                case 2 -> jogo.jogarRoboAutomatico();
-                case 3 -> jogo.jogarRoboxRoboInteligente();
-                case 4 -> jogo.jogarComObstaculos();
-                case 0 -> {
+                case 1:
+                    modo = new JogoNormal();
+                    modo.jogar();
+                    break;
+                case 2:
+                    modo = new JogoNormalAutomatico();
+                    modo.jogar();
+                    break;
+                case 3:
+                    modo = new JogoInteligentexInteligente();
+                    modo.jogar();
+                    break;
+                case 4:
+                    modo = new JogoComObstaculos(); 
+                    modo.jogar();
+                    break;
+                case 0:
                     System.out.println("Saindo do jogo.");
                     return;
-                }
-                default -> System.out.println("Opção inválida.");
+                default:
+                    System.out.println("Opção inválida.");
             }
         }
     }
