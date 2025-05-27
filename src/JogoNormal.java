@@ -61,16 +61,22 @@ public class JogoNormal extends Modo {
             System.out.println("*Rodada " + rodada + "*");
             System.out.println("***********");
             rodada++;
-
+            
             tabuleiro.mostrarTabuleiro(robo, comida.getPosicao());
-            System.out.println("Digite a direção (up, down, left, right) ou sair para sair)");
+            System.out.println("Digite a direção \nUp/1  \nDown/2 \nRight/3 \nLeft/4  \nSair/5)");
             System.out.print("-> ");
             direcao = T.next();
-            if (direcao.equals("sair")) {
+            if (direcao.equals("sair") || direcao.equals("5")) {
                 break;
             }else{
                 try {
-                    robo.mover(direcao);
+                    if (direcao.equals("1") || direcao.equals("2") || direcao.equals("3") || direcao.equals("4")){
+                        int dir = Integer.parseInt(direcao);
+                        robo.mover(dir);
+                    }
+                    else{
+                        robo.mover(direcao);
+                    }
                     movs += 1;
                     robo.setMovimentos(movs);
                     if (robo.isComida(comida)) {

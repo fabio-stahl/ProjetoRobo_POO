@@ -84,17 +84,7 @@ public class Robo {
                     throw new MovimentoInvalidoException("Movimento inválido: já está embaixo.");
                 }
             }
-
-            case 4 -> {
-                // Esquerda
-                if (coluna > 0) {
-                    coluna--;
-                    return true;
-                } else {
-                    throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
-                }
-            }
-
+            
             case 3 -> {
                 // Direita
                 if (coluna < maxColunas - 1) {
@@ -105,6 +95,16 @@ public class Robo {
                 }
             }
 
+            case 4 -> {
+                // Esquerda
+                if (coluna > 0) {
+                    coluna--;
+                    return true;
+                } else {
+                    throw new MovimentoInvalidoException("Movimento inválido: já está à esquerda.");
+                }
+            }
+            
             default -> throw new MovimentoInvalidoException("Direção inválida: " + direcao + ". Não é um número válido.");
         }
     }
