@@ -54,7 +54,13 @@ public abstract class Modo {
             // Verifica obstáculos
             for (Obstaculo o : obstaculos) {
                 if (o.getLinha() == robo1.getPosicao()[0] && o.getColuna() == robo1.getPosicao()[1]) {
+                    if(o instanceof Rocha && robo1 instanceof RoboInteligente){
+                        RoboInteligente roboIntel = (RoboInteligente) robo1;
+                        roboIntel.adicionarPosInvalida(new int[] {robo1.getPosicao()[0], robo1.getPosicao()[1]});
+                    }
+
                     o.bater(robo1, obstaculos);
+
                     break;
                 }
             }
